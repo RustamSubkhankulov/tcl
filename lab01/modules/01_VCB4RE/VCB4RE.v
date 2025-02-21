@@ -9,9 +9,9 @@ module VCBmRE (
   input clk, // Сигнал синхронизации (тактирующий сигнал)
   input R,   // Сигнал синхронного сброса в ноль
 
-  output reg [`m-1:0] Q = 0, // Значение счетчика
-  output wire TC,            // Terminal Count - сигнал переполнения
-  output wire CEO            // Clock Enable Output - сигнал переноса
+  output reg [`m-1:0]Q = 0, // Значение счетчика
+  output wire TC,           // Terminal Count - сигнал переполнения
+  output wire CEO           // Clock Enable Output - сигнал переноса
 );
 
 // Q0 & Q1 &...& Q'm-1 == 1
@@ -21,7 +21,7 @@ assign TC = (Q == (1 << `m) - 1);
 assign CEO = ce & TC;
 
 // По фронту входа синхронизации
-always @ (posedge clk) begin
+always @(posedge clk) begin
   
   // Если R == 1, то сброс в 0 независимо от сигнала синхронизации clk
   // Иначе если ce == 1, то "суммировать", иначе "стоять"

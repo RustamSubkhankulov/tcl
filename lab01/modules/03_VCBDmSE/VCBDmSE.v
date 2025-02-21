@@ -9,9 +9,9 @@ module VCBDmSE (
   input clk, // Сигнал синхронизации (тактирующий сигнал)
   input s,   // Сигнал синхронной установки в 2^m-1
 
-  output reg [`m-1:0] Q = 0, // Значение счетчика
-  output wire TC,            // Terminal Count - сигнал переполнения
-  output wire CEO            // Clock Enable Output - сигнал переноса
+  output reg [`m-1:0]Q = 0, // Значение счетчика
+  output wire TC,           // Terminal Count - сигнал переполнения
+  output wire CEO           // Clock Enable Output - сигнал переноса
 );
 
 // Q0 & Q1 &...& Q'm-1 == 0
@@ -21,7 +21,7 @@ assign TC = (Q == 0);
 assign CEO = ce & TC;
 
 // По фронту входа синхронизации
-always @ (posedge clk) begin
+always @(posedge clk) begin
   
   // Если s == 1, то запись 2^m-1
   // Иначе если ce == 1, то "вычитать", иначе "стоять"

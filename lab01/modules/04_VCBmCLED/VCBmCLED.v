@@ -5,16 +5,16 @@
 // и с входом 'ce' разрешения счета
 module VCBmCLED (
 
-  input ce,          // Clock Enable - сигнал разрешения счета
-  input up,          // Направление счета
-  input [`m-1:0] di, // Значение счетчика при загрузке
-  input L,           // Сигнал разрешения синхронной загрузки
-  input clk,         // Сигнал синхронизации (тактирующий сигнал)
-  input clr,         // Сигнал асинхронного сброса в ноль
+  input ce,         // Clock Enable - сигнал разрешения счета
+  input up,         // Направление счета
+  input [`m-1:0]di, // Значение счетчика при загрузке
+  input L,          // Сигнал разрешения синхронной загрузки
+  input clk,        // Сигнал синхронизации (тактирующий сигнал)
+  input clr,        // Сигнал асинхронного сброса в ноль
 
-  output reg [`m-1:0] Q = 0, // Значение счетчика
-  output wire TC,            // Terminal Count - сигнал переполнения
-  output wire CEO            // Clock Enable Output - сигнал переноса
+  output reg [`m-1:0]Q = 0, // Значение счетчика
+  output wire TC,           // Terminal Count - сигнал переполнения
+  output wire CEO           // Clock Enable Output - сигнал переноса
 );
 
 // Q0 & Q1 &...& Q'm-1 == 1 при up == 1
@@ -25,7 +25,7 @@ assign TC = up? (Q == ((1 << `m) - 1)) : (Q == 0);
 assign CEO = ce & TC;
 
 // По фронту входа синхронизации или по фронту сигнала асинхронного сброса
-always @ (posedge clr or posedge clk) begin
+always @(posedge clr or posedge clk) begin
   
   // Асинхронный сброс
   if (clr) Q <= 0;

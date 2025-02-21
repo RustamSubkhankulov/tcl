@@ -6,9 +6,9 @@ module VCGrey4RE (
   input clk, // Сигнал синхронизации (тактирующий сигнал)
   input R,   // Сигнал синхронного сброса в ноль
 
-  output wire [3:0] Y = 0, // Значение счетчика в коде грея
-  output wire TC,          // Terminal Count - сигнал переполнения
-  output wire CEO          // Clock Enable Output - сигнал переноса
+  output wire [3:0]Y = 0, // Значение счетчика в коде грея
+  output wire TC,         // Terminal Count - сигнал переполнения
+  output wire CEO         // Clock Enable Output - сигнал переноса
 );
 
 reg [4:0]q = 0;
@@ -22,7 +22,7 @@ assign CEO = ce & TC;
 assign Y = q[4:1]
 
 // По фронту входа синхронизации
-always @ (posedge clk) begin
+always @(posedge clk) begin
   
   q[0] <= (R | CEO)? 0 : ce? !q[0] : q[0];
   q[1] <= (R | CEO)? 0 : ((q[0] == 0) & ce)? !q[1] : q[1];
