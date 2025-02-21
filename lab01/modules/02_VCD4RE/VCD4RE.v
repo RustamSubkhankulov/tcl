@@ -25,7 +25,7 @@ always @ (posedge clk) begin
   
   // Сброс в 0 происходит при при Q == 9 и ce == 1 или при R == 1
   // Иначе если ce == 1, то "суммировать", иначе "стоять"
-  Q <= (R | CEO)  ? 0 : ce ? Q+1 : Q;
+  Q <= (R | CEO)? 0 : ce? Q+1 : Q;
 end
 
 endmodule
