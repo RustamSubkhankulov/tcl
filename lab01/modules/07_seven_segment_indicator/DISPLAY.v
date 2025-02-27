@@ -17,7 +17,7 @@ wire [1:0] Adr_dig;
 Gen4an DD1(.clk(clk), .q(Adr_dig), .ce(ce1ms), .an(AN));
 
 // Мультиплексор цифр
-MUX16_4 DD2(.dat(dat), .do(DIG), adr(Adr_dig))
+MUX16_4 DD2(.dat(dat), .do(Dig), .adr(Adr_dig))
 
 // Дешифратор семисегментных символов цифр
 D7seg DD3(.dig(Dig), .seg(SEG[6:0]))
