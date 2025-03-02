@@ -1,0 +1,21 @@
+`timescale 1ns / 1ps
+
+module Gen4an(
+
+  input clk, // Тактирующий сигнал
+  input ce,  // Разрешение переключения цифры
+
+  output reg [1:0]q = 0,  // Счетчик номера анода
+  output wire [3:0]an 
+);
+
+assign an = (q == 0)? 4'b1110 : // включение цифры 0
+            (q == 1)? 4'b1101 : // включение цифры 1
+            (q == 2)? 4'b1011 : // включение цифры 2
+                      4'b0111 ; // включение цифры 3
+
+always @(posedge clk) if (ce) begin
+  q <= q + 1;
+end
+
+endmodule

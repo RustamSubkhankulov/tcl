@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `define N 14
 
 module Gen_Nms_1s(
@@ -12,17 +13,17 @@ module Gen_Nms_1s(
 parameter F1kHz = 1000; 
 parameter F1Hz = 1;
 
-// РЎС‡РµС‚С‡РёРє N РјРёР»Р»РёСЃРµРєСѓРЅРґ
+// Счетчик N миллисекунд
 reg [9:0]cb_Nms = 0;
 
-// Р§РёСЃР»Рѕ РґР»СЏ РґРµР»РёС‚РµР»СЏ С‡Р°СЃС‚РѕС‚С‹
+// Число для делителя частоты
 wire [9:0]Nms = Tmod? `N-1 : ((F1kHz/F1Hz) - 1);
 
-// 1 СЃРµРєСѓРЅРґР° РёР»Рё Nms
+// 1 секунда или Nms
 assign CEO = ce & (cb_Nms == 0); 
 
-always @(posegde clk) if (ce) begin
-  // РЎС‡РµС‚ N РјРёР»Р»РёСЃРµРєСѓРЅРґ
+always @(posedge clk) if (ce) begin
+  // Счет N миллисекунд
   cb_Nms <= (cb_Nms == 0)? Nms : cb_Nms - 1;
 end
 
